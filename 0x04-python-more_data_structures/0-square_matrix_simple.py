@@ -1,3 +1,2 @@
-#!/usr/bin/python3
 def square_matrix_simple(matrix=[]):
-    return list(map(lambda row : list(map(lambdax: x**2, row)),matrix))
+    return list(map(lambda nm: list(map(lambda x: x**2, nm)), matrix))

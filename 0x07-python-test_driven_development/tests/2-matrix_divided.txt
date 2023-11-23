@@ -1,0 +1,94 @@
+2-matrix_divided.py test
+========================
+Test matrix_divided() function
+---------------------------------
+
+	Test normal Matrix (list of lists)
+	==================================
+
+        >>> matrix_divided = __import__("2-matrix_divided").matrix_divided
+        >>> matrix = [
+        ...     [1, 2, 3],
+        ...     [4, 5, 6]]
+
+	>>> matrix_divided(matrix, 2)
+        [[0.5, 1.0, 1.5], [2, 2.5, 3.0]]
+	
+	Test division of one el
+	=======================
+
+	>>> matrix_divided([[1]], 2)
+	[[0.5]]
+
+	Test row length
+        ===============
+
+        >>> matrix = [
+        ...     [1, 2, 3],
+        ...     [4, 5, 6, 7]]
+
+        >>> matrix_divided(matrix, 2)
+        Traceback (most recent call last):
+        ...
+        TypeError: Each row of the matrix must have the same size
+
+	Test division by negative
+        =========================
+
+        >>> matrix = [
+        ...     [1, -2, 3],
+        ...     [-4, 5, 6]]
+        >>> matrix_divided(matrix, -2)
+        [[-0.5, 1.0, -1.5], [-2, -2.5, -3.0]]
+
+        Test Incorrect type of div
+        ==========================
+
+	>>> matrix = [
+        ...     [1, 2, 3],
+        ...     [4, 5, 6]]
+
+        >>> matrix_divided(matrix, "num")
+        Traceback (most recent call last):
+        ...
+        TypeError: div must be a number
+
+        Test Division by zero
+        =====================
+
+        >>> matrix = [
+        ...     [1, 2, 3],
+        ...     [4, 5, 6]
+
+        >>> matrix_divided(matrix, 0)
+        Traceback (most recent call last):
+        ...
+        ZeroDivisionError: division by zero
+
+	Test Incorect Type
+	==================
+
+	Num
+	===
+	>>> num = 2
+	>>> matrix-divided(num, 2)
+	Traceback (most recent call last):
+	...
+	TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+	list
+	====
+	
+	>>> matrix_divided([1, 2, 3], 2)
+	Traceback (most recent call last):
+	...
+	TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+	String
+	======
+
+	>>> matrix_divided([1, 2, 3], 2)
+	Traceback (most recent call last):
+	...
+	TypeError: matrix must be a matrix (list of lists) of integers/floats
+

@@ -1,4 +1,4 @@
-=====================
+
 0-add_integer.py test
 =====================
 
@@ -19,7 +19,7 @@ Import function from module:
 
 Test one float:
 
-	>>> add_integer(100.3, -2)
+	>>> add_integer(100.1, -2)
 	98
 
 Test one argument
@@ -32,3 +32,9 @@ Test negative integer:
 	>>> add_integer(-100, 99)
 	-1
 
+Test strings
+
+	>>> add_integer(2, "string")
+	Traceback (most recent call last):
+	...
+	TypeError: b must be an integer

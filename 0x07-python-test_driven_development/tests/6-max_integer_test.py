@@ -1,9 +1,12 @@
 #!/usr/bin/python3
-"""Unittest for max_integer([..])"""
+"""Unittest for max_integer([..])
+"""
+
 import unittest
 max_integer = __import__("6-max_integer").max_integer
 
-class TestMaxInt(unittest.TestCase):
+
+class TestMaxInteger(unittest.TestCase):
     def test_noarg(self):
         self.assertEqual(max_integer(), None)
 
@@ -17,11 +20,11 @@ class TestMaxInt(unittest.TestCase):
 
     def test_string(self):
         string = "Maxm"
-        self.assertEqual(max_integer(string), 'm')
+        self.assertEqual(max_integer(string), 'x')
 
     def test_floats(self):
         floats = [5.2, 7.8, 1.9, 0.1]
-        self.assertEqual(max_integer(floats), '7.8')
+        self.assertEqual(max_integer(floats), 7.8)
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,9 +10,8 @@ class TestMaxInteger(unittest.TestCase):
     def test_noarg(self):
         self.assertEqual(max_integer(), None)
     
-    def test_float(self):
-        floats = [15.2]
-        self.assertEqual(max_integer(floats), 15.2)
+    def test_one(self):
+        self.assertEqual(max_integer([98]), 98)
 
     def test_float(self):
         floats = [15.2, -7.8, 1.9, -0.1]

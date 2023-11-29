@@ -9,7 +9,10 @@ max_integer = __import__("6-max_integer").max_integer
 class TestMaxInteger(unittest.TestCase):
     def test_noarg(self):
         self.assertEqual(max_integer(), None)
-
+    
+    def test_float(self):
+        floats = [15.2, -7.8, 1.9, -0.1]
+        self.assertEqual(max_integer(floats), 15.2)    
     def test_pos(self):
         ma = [2, 134, 22, 819, 9, 4445]
         self.assertEqual(max_integer(ma), 4445)

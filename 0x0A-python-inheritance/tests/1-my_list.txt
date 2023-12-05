@@ -1,60 +1,63 @@
-==========================
-7-base_geometry.py testing
-==========================
+====================
+1-my_list.py testing
+====================
 
-Testing BaseGeometry class and its methods
+
+Testing MyList class and its print_sorted() method
+
 
 Setup
 =====
-    >>> G = __import__("7-base_geometry").BaseGeometry
-
-area() method check
-===================
-    >>> a = G()
-    >>> a.area() #doctest +ELLIPSIS
-    Traceback (most recent call last):
-    ...
-    Exception: area() is not implemented
-
-integer_validator() method check
-================================
-
-Integer input
-=============
-----	Strictly positve input
-    >>> a.integer_validator("Hi", 10)
-
-----	Zero input
-    >>> a.integer_validator("Hi", 0) #doctest +ELLIPSIS
-    Traceback (most recent call last):
-    ...
-    ValueError: Hi must be greater than 0
-
-----	Negative input
-    >>> a.integer_validator("Hi", -2) #doctest +ELLIPSIS
-    Traceback (most recent call last):
-    ...
-    ValueError: Hi must be greater than 0
+    >>> MyList = __import__("1-my_list").MyList
 
 
-Non-Integer input
-=================
-    >>> a.integer_validator("Hi", 12.3) #doctest +ELLIPSIS
-    Traceback (most recent call last):
-    ...
-    TypeError: Hi must be an integer
+Check that MyList is a list subclass
+====================================
+    >>> issubclass(MyList, list)
+    True
 
-    >>> a.integer_validator("Hi", [1, 2, 3]) #doctest +ELLIPSIS
-    Traceback (most recent call last):
-    ...
-    TypeError: Hi must be an integer
+Empty list check
+================
+	>>> l = MyList()
+	>>> l.print_sorted()
+	[]
 
-    >>> a.integer_validator("Hi", (1, 2, 3)) #doctest +ELLIPSIS
-    Traceback (most recent call last):
-    ...
-    TypeError: Hi must be an integer
+append() check
+==============
+	>>> l.append(1)
+	>>> l.append(2)
+	>>> l.append(3)
+	>>> print(l)
+	[1, 2, 3]
 
-    >>> a.integer_validator("Hi", "Hello") #doctest +ELLIPSIS
-    Traceback (most recent call last):
-    ...
-    TypeError: Hi must be an integer
+ordered list check
+==================
+	>>> l.print_sorted()
+	[1, 2, 3]
+
+reverse ordered list + negative num check
+=========================================
+	>>> l = MyList()
+	>>> l.append(3)
+	>>> l.append(2)
+	>>> l.append(1)
+	>>> l.append(-5)
+	>>> print(l)
+	[3, 2, 1, -5]
+	>>> l.print_sorted()
+	[-5, 1, 2, 3]
+	>>> print(l)
+	[3, 2, 1, -5]
+
+all negative numbers check
+==========================
+	>>> l = MyList()
+	>>> l.append(-2)
+	>>> l.append(-8)
+	>>> l.append(-4)
+	>>> print(l)
+	[-2, -8, -4]
+	>>> l.print_sorted()
+	[-8, -4, -2]
+	>>> print(l)
+	[-2, -8, -4]

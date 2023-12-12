@@ -1,156 +1,178 @@
-#!/usr/bin/python3
-"""Defines a rectangle class."""
-from models.base import Base
+import unittest
+import sys
+sys.path.append("../..")
+from models.rectangle import Rectangle
+"""
+Module that defines unittests for rectangle.py.
+"""
 
 
-class Rectangle(Base):
-    """Represent a rectangle."""
+class TestRectangle_Instantiation(unittest.TestCase):
+    """Instantiation unittest for class Rectangle"""
 
-    def __init__(self, width, height, x=0, y=0, id=None):
-        """Initialize a new Rectangle.
-        Args:
-            width (int): The width of the new Rectangle.
-            height (int): The height of the new Rectangle.
-            x (int): The x coordinate of the new Rectangle.
-            y (int): The y coordinate of the new Rectangle.
-            id (int): The identity of the new Rectangle.
-        Raises:
-            TypeError: If either of width or height is not an int.
-            ValueError: If either of width or height <= 0.
-            TypeError: If either of x or y is not an int.
-            ValueError: If either of x or y < 0.
-        """
-        self.width = width
-        self.height = height
-        self.x = x
-        self.y = y
-        super().__init__(id)
+    def test_size_input(self):
+        r1 = Rectangle(10, 2)
+        r2 = Rectangle(2, 10)
+        self.assertEqual(r1.area(), r2.area())
+        self.assertEqual(r1.width + r1.height, r2.width + r2.height)
+        self.assertEqual(r1.id, r2.id - 1)
 
-    @property
-    def width(self):
-        """Set/get the width of the Rectangle."""
-        return self.__width
+    def test_no_position_input(self):
+        r1 = Rectangle(5, 2)
+        r2 = Rectangle(4, 10)
+        self.assertEqual(r1.x, 0)
+        self.assertEqual(r1.y, 0)
+        self.assertEqual(r2.x, 0)
+        self.assertEqual(r2.y, 0)
+        self.assertEqual(r1.id, r2.id - 1)
 
-    @width.setter
-    def width(self, value):
-        if type(value) != int:
-            raise TypeError("width must be an integer")
-        if value <= 0:
-            raise ValueError("width must be > 0")
-        self.__width = value
+    def test_position_input(self):
+        r1 = Rectangle(12, 3, 4, 5)
+        r2 = Rectangle(21, 4, 5, 4)
+        self.assertEqual(r1.x, 4)
+        self.assertEqual(r1.y, 5)
+        self.assertEqual(r2.x, 5)
+        self.assertEqual(r2.y, 4)
+        self.assertEqual(r1.id, r2.id - 1)
 
-    @property
-    def height(self):
-        """Set/get the height of the Rectangle."""
-        return self.__height
+    def test_position_input_area(self):
+        r1 = Rectangle(12, 3, 4, 5)
+        r2 = Rectangle(21, 4, 5, 4)
+        self.assertEqual(r1.area(), 36)
+        self.assertEqual(r2.area(), 84)
+        self.assertEqual(r1.id, r2.id - 1)
 
-    @height.setter
-    def height(self, value):
-        if type(value) != int:
-            raise TypeError("height must be an integer")
-        if value <= 0:
-            raise ValueError("height must be > 0")
-        self.__height = value
+    def test_incorrect_width(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle("10", 2)
 
-    @property
-    def x(self):
-        """Set/get the x coordinate of the Rectangle."""
-        return self.__x
+    def test_incorrect_width(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(10.77, 2)
 
-    @x.setter
-    def x(self, value):
-        if type(value) != int:
-            raise TypeError("x must be an integer")
-        if value < 0:
-            raise ValueError("x must be >= 0")
-        self.__x = value
+    def test_incorrect_width_list(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle([12, 2], 2)
 
-    @property
-    def y(self):
-        """Set/get the y coordinate of the Rectangle."""
-        return self.__y
+    def test_incorrect_height(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(2, "10")
 
-    @y.setter
-    def y(self, value):
-        if type(value) != int:
-            raise TypeError("y must be an integer")
-        if value < 0:
-            raise ValueError("y must be >= 0")
-        self.__y = value
+    def test_incorrect_height(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(2, 10.3)
 
-    def area(self):
-        """Return the area of the Rectangle."""
-        return self.width * self.height
+    def test_incorrect_height_tuple(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(2, (12, ))
 
-    def display(self):
-        """Print the Rectangle using the `#` character."""
-        if self.width == 0 or self.height == 0:
-            print("")
-            return
+    def test_incorrect_x(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(10, 2, "1")
 
-        [print("") for y in range(self.y)]
-        for h in range(self.height):
-            [print(" ", end="") for x in range(self.x)]
-            [print("#", end="") for w in range(self.width)]
-            print("")
+    def test_incorrect_x_float(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(10, 2, 1.5)
 
-    def update(self, *args, **kwargs):
-        """Update the Rectangle.
-        Args:
-            *args (ints): New attribute values.
-                - 1st argument represents id attribute
-                - 2nd argument represents width attribute
-                - 3rd argument represent height attribute
-                - 4th argument represents x attribute
-                - 5th argument represents y attribute
-            **kwargs (dict): New key/value pairs of attributes.
-        """
-        if args and len(args) != 0:
-            a = 0
-            for arg in args:
-                if a == 0:
-                    if arg is None:
-                        self.__init__(self.width, self.height, self.x, self.y)
-                    else:
-                        self.id = arg
-                elif a == 1:
-                    self.width = arg
-                elif a == 2:
-                    self.height = arg
-                elif a == 3:
-                    self.x = arg
-                elif a == 4:
-                    self.y = arg
-                a += 1
+    def test_incorrect_x_dict(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(10, 2, {"x": 1})
 
-        elif kwargs and len(kwargs) != 0:
-            for k, v in kwargs.items():
-                if k == "id":
-                    if v is None:
-                        self.__init__(self.width, self.height, self.x, self.y)
-                    else:
-                        self.id = v
-                elif k == "width":
-                    self.width = v
-                elif k == "height":
-                    self.height = v
-                elif k == "x":
-                    self.x = v
-                elif k == "y":
-                    self.y = v
+    def test_incorrect_y(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(10, 2, 1, "1")
 
-    def to_dictionary(self):
-        """Return the dictionary representation of a Rectangle."""
-        return {
-            "id": self.id,
-            "width": self.width,
-            "height": self.height,
-            "x": self.x,
-            "y": self.y
-        }
+    def test_incorrect_y_float(self):
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(10, 2, 1, 1.1)
 
-    def __str__(self):
-        """Return the print() and str() representation of the Rectangle."""
-        return "[Rectangle] ({}) {}/{} - {}/{}".format(self.id,
-                                                       self.x, self.y,
-                                                       self.width, self.height)
+    def test_negative_width(self):
+        with self.assertRaises(ValueError):
+            r1 = Rectangle(-1, 2)
+
+    def test_zero_width(self):
+        with self.assertRaises(ValueError):
+            r1 = Rectangle(0, 7)
+
+    def test_negative_height(self):
+        with self.assertRaises(ValueError):
+            r1 = Rectangle(77, 0)
+
+    def test_zero_height(self):
+        with self.assertRaises(ValueError):
+            r1 = Rectangle(7, 0)
+
+    def test_negative_x(self):
+        with self.assertRaises(ValueError):
+            r1 = Rectangle(2, 2, -1, 5)
+
+    def test_negative_y(self):
+        with self.assertRaises(ValueError):
+            r1 = Rectangle(3, 2, 0, -1)
+
+    def test_no_input(self):
+        with self.assertRaises(TypeError):
+            r = Rectangle()
+
+
+class TestRectangle_Assignment(unittest.TestCase):
+    """Assignment unittest for class Rectangle"""
+    def test_assign_size(self):
+        r1 = Rectangle(1, 2)
+        r2 = Rectangle(3, 4)
+        r2.width, r2.height = 1, 2
+        self.assertEqual(r1.area(), r2.area())
+
+    def test_bad_size_assignment(self):
+        r = Rectangle(1, 1)
+        with self.assertRaises(ValueError):
+            r.width = -1
+
+    def test_bad_size_assignment2(self):
+        r = Rectangle(1, 1)
+        with self.assertRaises(TypeError):
+            r.width = "string"
+
+    def test_assign_position(self):
+        r1 = Rectangle(1, 2)
+        r1.x = 3
+        r1.y = 8
+        self.assertEqual(r1.x, 3)
+        self.assertEqual(r1.y, 8)
+
+    def test_bad_position_assignment(self):
+        r = Rectangle(1, 1)
+        with self.assertRaises(ValueError):
+            r.x = -1
+
+    def test_bad_position_assignment2(self):
+        r = Rectangle(1, 1)
+        with self.assertRaises(TypeError):
+            r.y = {}
+
+    def test_assign_id(self):
+        r1 = Rectangle(9, 2)
+        r2 = Rectangle(2, 3, 0, 0, 12)
+        r3 = Rectangle(4, 9)
+        self.assertEqual(r1.id, r3.id - 1)
+        self.assertEqual(r2.id, 12)
+
+    
+class TestRectangle_str(unittest.TestCase):
+    """__str__ unittest for class Rectangle"""
+    pass # TO-DO
+
+
+class TestRectangle_display(unittest.TestCase):
+    """display() unittest for class Rectangle"""
+    pass # TO-DO
+
+
+class TestRectangle_update(unittest.TestCase):
+    """update() unittest for class Rectangle"""
+    pass # TO-DO
+
+
+if __name__ == "__main__":
+    unittest.main()
+

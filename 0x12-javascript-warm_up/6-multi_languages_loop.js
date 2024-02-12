@@ -1,6 +1,7 @@
-#!/usr/bin/node
+t strings = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
+let idx = 0;
 
-const lines = ["C is fun", "Python is cool", "JavaScript is amazing"];
-for (let i = 0; i < lines.length; i++) {
-	console.log(lines[i]);
+while (idx < 3) {
+  console.log(strings[idx]);
+  idx++;
 }

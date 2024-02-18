@@ -1,22 +1,32 @@
 #!/usr/bin/python3
-
 """
-lists all states from the database hbtn_0e_0_usa
+Module that list all `states` from the database `hbtn_0e_0_usa`
 """
-if __name__ == '__main__':
+from sys import argv
+import MySQLdb
 
-    import sys
-    import MySQLdb
 
-    user_name = sys.argv[1]
-    password = sys.argv[2]
-    db_name = sys.argv[3]
-
-    db = MySQLdb.connect(host='localhost', port=3306,
-                         user=user_name, passwd=password, db=db_name)
+def main():
+    """
+    Connecting to database and retrieving the state names
+    """
+    db = MySQLdb.connect(
+        host='localhost',
+        port=3306,
+        user=argv[1],
+        passwd=argv[2],
+        db=argv[3]
+    )
 
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states ORDER BY states.id ASC;")
-    rows = cursor.fetchall()
-    for row in rows:
+
+    cursor.execute("SELECT * FROM states")
+
+    results = cursor.fetchall()
+
+    for row in results:
         print(row)
+
+
+if __name__ == "__main__":
+    main()

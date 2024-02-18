@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 """
-Script 2-my_filter_states.py
-Improved to handle SQL injections
+Script to list all cities from
+the database hbtn_0e_4_usa
 """
 
 
 def main():
     """
-    function to connect to the database
-    and to query  it.
+    Connecting and querying the database
     """
     from sys import argv
     import MySQLdb
@@ -17,10 +16,9 @@ def main():
                          passwd=argv[2], db=argv[3])
 
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states \
-                    WHERE name LIKE BINARY %s \
-                    ORDER BY states.id ASC", (argv[4],))
-
+    cursor.execute("SELECT cities.id, cities.name, states.name FROM cities \
+                    JOIN states ON cities.state_id = states.id \
+                    ORDER BY cities.id ASC")
     results = cursor.fetchall()
 
     for row in results:

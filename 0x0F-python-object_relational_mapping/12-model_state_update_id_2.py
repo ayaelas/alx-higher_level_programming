@@ -1,27 +1,36 @@
 #!/usr/bin/python3
-
 """
-changes the name of a State object from the database hbtn_0e_6_usa
+Script that changes the name of a `State` object
+from the database `hbtn_0e_6_usa`
+
+Changes the name of the `State` where id = 2
+to 'New Mexico'
 """
 
-if __name__ == "__main__":
-    from sqlalchemy.orm import Session
+
+def main():
+    """
+    Connecting to the database and querying it
+    """
+    from sqlalchemy.orm import sessionmaker
     from sqlalchemy import create_engine
     from model_state import Base, State
-    import sys
+    from sys import argv
 
-    user = sys.argv[1]
-    password = sys.argv[2]
-    db_name = sys.argv[3]
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
+                           .format(argv[1], argv[2], argv[3]))
 
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format(
-        user, password, db_name, pool_pre_ping=True))
-    Base.metadata.create_all(engine)
+    Session = sessionmaker(engine)
+    session = Session()
 
-    session = Session(engine)
+    to_change = session.query(State).filter_by(id=2).first()
+    to_change.name = "New Mexico"
 
-    state = session.query(State).filter(State.id == 2).first()
-    state.name = 'New Mexico'
     session.commit()
-    print(a_state.id)
-    session.close()
+
+
+if __name__ == "__main__":
+    """
+    Main Entry Point
+    """
+    main()

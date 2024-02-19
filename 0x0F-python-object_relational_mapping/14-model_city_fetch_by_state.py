@@ -1,32 +1,30 @@
 #!/usr/bin/python3
+
 """
-Prints all City objects from the hbtn_0e_14_usa DB
+prints all City objects from the database hbtn_0e_14_usa
 """
-
-
-def main():
-    """
-    Connecting to the DB and querying it
-    """
-    from sqlalchemy.orm import sessionmaker
-    from model_state import Base, State
-    from sqlalchemy import create_engine
-    from model_city import City
-    from sys import argv
-
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'
-                           .format(argv[1], argv[2], argv[3]))
-
-    Session = sessionmaker(engine)
-    session = Session()
-
-    result = session.query(City, State).filter(State.id == City.state_id)\
-                    .order_by(City.id)
-
-    for state, city in result:
-        print("{2}: ({1}) {0}".format(state.name, city.id, city.name))
-
 
 if __name__ == "__main__":
-    """ Main Entry Point """
-    main()
+    from sqlalchemy.orm import Session
+    from sqlalchemy import create_engine
+    from model_state import Base, State
+    import sys
+    from model_city import City
+    from sqlalchemy.schema import Table
+
+    user = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
+
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.format(
+        user, password, db_name, pool_pre_ping=True))
+    Base.metadata.create_all(engine)
+
+    session = Session(engine)
+
+    results = session.query(State, City).filter(
+                            City.state_id == State.id).order_by(
+                            City.id).all()
+    for state, city in results:
+        print("{}: ({}) {}".format(state.name, city.id, city.name))
+    session.close()

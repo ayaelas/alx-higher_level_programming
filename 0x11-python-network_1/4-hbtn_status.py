@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """
-Fetch: https://alx-intranet.hbtn.io/status
-Send Request to URL
+Fetche: https://alx-intranet.hbtn.io/status
 """
 if __name__ == "__main__":
     import requests
@@ -10,4 +9,3 @@ if __name__ == "__main__":
     print("Body response:")
     print(f"\t- type: {type(response.text)}")
     print(f"\t- content: {response.text}")
-

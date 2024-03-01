@@ -1,16 +1,12 @@
 #!/usr/bin/python3
 """
-sends a request to the URL
+- Takes in a URL + Sends a request to URL
 """
-
-import urllib.request
-import sys
-
-
 if __name__ == "__main__":
-    url = sys.argv[1]
+    import urllib.request as request
+    import sys
 
-    with urllib.request.urlopen(url) as response:
-        val = response.getheader('X-Request-Id')
-        print(val)
+    urlreq = request.Request(sys.argv[1])
 
+    with request.urlopen(urlreq) as response:
+        print(response.headers.get('X-Request-Id'))

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Script takes a letter
+Script that takes in a user with the letter as a parameter
 """
 if __name__ == "__main__":
     import requests
@@ -19,4 +19,3 @@ if __name__ == "__main__":
             print("[{}] {}".format(response.get("id"), response.get("name")))
     except ValueError:
         print("Not a valid JSON")
-

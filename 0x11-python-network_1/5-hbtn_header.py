@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-- Takes in a URL, Sends a request to URL and Displays the value of the `X-Request-Id` variable
+- Takes in a URL, Sends a request to URL
 """
 if __name__ == "__main__":
     import requests

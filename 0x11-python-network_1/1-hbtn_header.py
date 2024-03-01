@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""  sends a request to the URL
+"""
+sends a request to the URL
 """
 
 import urllib.request

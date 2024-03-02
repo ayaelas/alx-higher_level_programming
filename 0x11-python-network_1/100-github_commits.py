@@ -22,4 +22,3 @@ if __name__ == "__main__":
                 v[i].get("commit").get("author").get("name")))
     except IndexError:
         pass
-

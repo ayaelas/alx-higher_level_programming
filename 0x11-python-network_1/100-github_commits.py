@@ -8,17 +8,18 @@ import sys
 
 
 if __name__ == "__main__":
-    ze = sys.argv[1]
-    solo = sys.argv[2]
+    rep = sys.argv[1]
+    own = sys.argv[2]
     url = "https://api.github.com/repos/{}/{}/commits".format(
-                     ze, solo)
+                     rep, own)
 
-    a = requests.get(url)
-    v = a.json()
+    r = requests.get(url)
+    j = r.json()
     try:
         for i in range(10):
             print("{}: {}".format(
-                v[i].get("sha"),
-                v[i].get("commit").get("author").get("name")))
+                j[i].get("sha"),
+                j[i].get("commit").get("author").get("name")))
     except IndexError:
         pass
+
